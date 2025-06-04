@@ -62,6 +62,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         curl -s https://raw.githubusercontent.com/immortalwrt/build-scripts/master/init_build_environment.sh | sudo bash
+        DEBIAN_FRONTEND=noninteractive
         sudo apt-get install -y rename pigz libfuse-dev upx subversion clang
         sudo apt-get autoremove -y --purge
         sudo apt-get clean
