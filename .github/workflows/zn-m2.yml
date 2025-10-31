@@ -92,12 +92,12 @@ jobs:
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
-    - name: Modify feeds
-      run: |
-        set -x
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+    # - name: Modify feeds
+    #   run: |
+    #     set -x
+    #     chmod +x $DIY_P2_SH
+    #     cd openwrt
+    #     $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
