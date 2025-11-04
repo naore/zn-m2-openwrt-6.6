@@ -13,7 +13,7 @@ jobs:
       API_TOKEN: ${{ secrets.API_TOKEN }}
       SSH_PRIVATE_KEY_ID: ${{ secrets.SSH_PRIVATE_KEY_ID }}
       WORKFLOW_FILE: ${{ vars.WORKFLOW }} # workflows文件全名(如xxx.yml)或者workflow的name
-
+      PRODUCT_ID: ${{ vars.PRODUCT_ID || 38 }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
         run: |
           resp=$(curl -s -X POST 'https://app.alice.ws/cli/v1/Evo/Deploy' \
             -H "Authorization: Bearer $API_TOKEN" \
-            --form "product_id=${{ vars.PRODUCT_ID }}" \
+            --form "product_id=$PRODUCT_ID" \
             --form "os_id=10" \
             --form "time=4" \
             --form "sshKey=$SSH_PRIVATE_KEY_ID")
