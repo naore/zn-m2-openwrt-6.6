@@ -18,3 +18,17 @@ sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='OpenWrt IPQ6000 ZN-M2 (
 
 # ttyd免登陆
 sed -i -r 's#/bin/login#/bin/login -f root#g' feeds/packages/utils/ttyd/files/ttyd.config
+
+# 新版的 OpenWrt/ImmortalWrt 中，libcrypt 已經被 libxcrypt 取代。
+sed -i 's/libcrypt-compat/libxcrypt-compat/g' package/feeds/packages/*/Makefile
+sed -i 's/libcrypt/libxcrypt/g' package/feeds/packages/*/Makefile
+
+#解決 APK 模式下的 conffiles 錯誤
+# 如果你的 .config 是舊的，強制改回 OPKG 模式（最穩定的做法）
+# sed -i 's/CONFIG_USE_APK=y/# CONFIG_USE_APK is not set/' .config
+
+# 变更kernel版本
+#cat <<EOF > package/feeds/include/kernel-6.6
+#LINUX_VERSION-6.6 = .93
+#LINUX_KERNEL_HASH-6.6.93 = 0d79ff359635e9f009f1e330deed5f3aefd8c452b80660bffdc504b877797719
+#EOF
