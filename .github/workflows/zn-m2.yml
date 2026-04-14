@@ -18,7 +18,7 @@ permissions:
 
 env:
   REPO_URL: https://github.com/LiBwrt/openwrt-6.x
-  REPO_BRANCH: k6.12-nss
+  REPO_BRANCH: main-nss
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: ./config/zn-m2.config
   DIY_P1_SH: ./scripts/zn-m2/diy-part1.sh
