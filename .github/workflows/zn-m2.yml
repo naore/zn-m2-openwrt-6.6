@@ -191,16 +191,24 @@ jobs:
         
         echo "status=success" >> $GITHUB_OUTPUT
 
-    - name: Publish packages dir to Release
+    - name: Publish to Release
       uses: softprops/action-gh-release@v2
-      if: steps.compile.outputs.status == 'success' && !cancelled() && env.UPLOAD_RELEASE == 'true'
+      if: steps.organize.outputs.status == 'success' && !cancelled() && env.UPLOAD_RELEASE == 'true'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: OpenWrt-${{ env.DEVICE_NAME }}-${{ env.FILE_DATE }}
-        body_path: release.txt
-        files: |
-          openwrt-bin-${{ github.run_number }}.tar.gz
-          openwrt-bin-${{ github.run_number }}.tar.gz.sha256
-          openwrt/upload/*
+        body: |
+          ## 固件發佈信息
+          設備名稱：${{ env.DEVICE_NAME }}
+          編譯時間：${{ env.FILE_DATE }}
+          
+          源码：${{env.REPO_URL}}
+          分支：${{env.REPO_BRANCH}}
+
+          配置：${{env.CONFIG}}
+
+          内核版本：${{env.WRT_KVER}}
+          插件列表：${{env.WRT_LIST}}
+        files: openwrt/upload/*
 
