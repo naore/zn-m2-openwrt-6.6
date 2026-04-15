@@ -159,13 +159,18 @@ jobs:
         cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
-        echo "status=success" >> $GITHUB_OUTPUT
+        df -h
+        [ $? -eq 0 ] && echo "status=success" >> $GITHUB_OUTPUT # 确保 make 成功才设置
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
     - name: Prepare and Organize Files
       id: organize
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true'
       run: |
+        set -x  # 开启调试模式，显示每一行执行过程
+        echo "Check current directory: $(pwd)"
+        ls -R openwrt/bin/targets/ || echo "Targets directory not found!"
+        
         cd openwrt/
         mkdir ./upload/
         
