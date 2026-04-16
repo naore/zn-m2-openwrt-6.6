@@ -184,6 +184,8 @@ jobs:
         # 限制插件列表长度，防止 Release Body 过长导致失败
         echo "WRT_LIST=$(find ./bin/targets/ -type f -name "*.manifest" -exec grep -oP '^luci-(app|theme)[^ ]*' {} \; | head -n 20 | tr '\n' ' ')" >> $GITHUB_ENV
 
+        find ./bin/targets/ -maxdepth 3 -mindepth 1 -type f
+        
         # 3. 移动固件（重点：只抓取常见的固件格式）
         # 加上 -L 是为了防止软链接失效
         find ./bin/targets/ -type f \( -name "*.bin" -o -name "*.img*" -o -name "*.gz" -o -name "*.mbi" -o -name "*.ubi" \) | while read -r FILE; do
