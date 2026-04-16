@@ -186,7 +186,7 @@ jobs:
 
         # 3. 移动固件（重点：只抓取常见的固件格式）
         # 加上 -L 是为了防止软链接失效
-        find ./bin/targets/ -type f \( -name "*.bin" -o -name "*.img*" -o -name "*.gz" -o -name "*.mbi" \) | while read -r FILE; do
+        find ./bin/targets/ -type f \( -name "*.bin" -o -name "*.img*" -o -name "*.gz" -o -name "*.mbi" -o -name "*.ubi" \) | while read -r FILE; do
           mv -f "$FILE" ./upload/
         done
         
