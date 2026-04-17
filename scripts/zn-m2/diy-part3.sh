@@ -45,5 +45,7 @@ echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
 
 # 6.6内核
 # 修改补丁文件：将 q6 预留从 95MB (0x05f00000) 改为 16MB (0x1000000)
-#sed -i 's/0x4b000000 0x0 0x05f00000/0x4b000000 0x0 0x01000000/g' target/linux/qualcommax/patches-6.6/0102-arm64-dts-ipq8074-add-reserved-memory-nodes.patch
-#cat target/linux/qualcommax/patches-6.6/0102-arm64-dts-ipq8074-add-reserved-memory-nodes.patch
+sed -i 's/0x4b000000 0x0 0x05f00000/0x4b000000 0x0 0x01000000/g' target/linux/qualcommax/patches-6.6/0102-arm64-dts-ipq8074-add-reserved-memory-nodes.patch
+cat target/linux/qualcommax/patches-6.6/0102-arm64-dts-ipq8074-add-reserved-memory-nodes.patch
+DTS_PATH="./target/linux/qualcommax/files/arch/arm64/boot/dts/qcom"
+find $DTS_PATH -type f ! -iname '*nowifi*' -exec sed -i 's/ipq\(6018\|8074\).dtsi/ipq\1-nowifi.dtsi/g' {} +
