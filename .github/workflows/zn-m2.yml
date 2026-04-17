@@ -200,6 +200,16 @@ jobs:
         # 检查是否真的有文件被移入
         if [ "$(ls -A ./upload/)" ]; then
           echo "status=success" >> $GITHUB_OUTPUT
+          for file in ./upload/*; do
+            if [ -f "$file" ]; then
+              # 獲取文件名和擴展名
+              filename=$(basename -- "$file")
+              extension="${filename##*.}"
+              filename="${filename%.*}"
+              # 重命名為: 原名_時間.擴展名
+              mv "$file" "./upload/${filename}_${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}.${extension}"
+            fi
+          done
         else
           echo "No firmware files found!"
           exit 1
