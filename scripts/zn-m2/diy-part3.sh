@@ -39,7 +39,7 @@ echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
 echo "CONFIG_PACKAGE_luci-theme-$WRT_THEME=y" >> ./.config
 echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
 
-# 6.12内核
+# 6.12内核libwrt原库
 # 修改补丁文件：将 q6 预留从 64MB (0x4000000) 改为 16MB (0x1000000)
 #sed -i 's/0x4ab00000 0x0 0x4000000/0x4ab00000 0x0 0x1000000/g' target/linux/qualcommax/patches-6.12/0135-arm64-dts-ipq6018-add-reserved-memory-nodes.patch
 
@@ -47,12 +47,16 @@ echo "CONFIG_PACKAGE_luci-app-$WRT_THEME-config=y" >> ./.config
 DTS_PATH="./target/linux/qualcommax/dts"
 #find $DTS_PATH -type f ! -iname '*nowifi*' -exec sed -i 's/ipq\(6018\|8074\).dtsi/ipq\1-nowifi.dtsi/g' {} +
 
+
+# 將 qualcommax 的預設內核從 6.12 切換為 6.6
+sed -i 's/KERNEL_PATCHVER:=6.12/KERNEL_PATCHVER:=6.6/g' target/linux/qualcommax/Makefile
+
 # 6.6内核
 # 修改补丁文件：将 q6 预留从 95MB (0x05f00000) 改为 16MB (0x1000000)
-sed -i 's/0x4b000000 0x0 0x05f00000/0x4b000000 0x0 0x01000000/g' target/linux/qualcommax/patches-6.6/0102-arm64-dts-ipq8074-add-reserved-memory-nodes.patch
-cat target/linux/qualcommax/patches-6.6/0102-arm64-dts-ipq8074-add-reserved-memory-nodes.patch
+#sed -i 's/0x4b000000 0x0 0x05f00000/0x4b000000 0x0 0x01000000/g' target/linux/qualcommax/patches-6.12/0135-arm64-dts-ipq8074-add-reserved-memory-nodes.patch
+cat target/linux/qualcommax/patches-6.12/0135-arm64-dts-ipq8074-add-reserved-memory-nodes.patch
 
-# openwrtfork/libwrt修改地址
+# naore/libwrt修改地址
 DTS_PATH2="./target/linux/qualcommax/files/arch/arm64/boot/dts/qcom"
 find $DTS_PATH2 -type f ! -iname '*nowifi*' -exec sed -i 's/ipq\(6018\|8074\).dtsi/ipq\1-nowifi.dtsi/g' {} +
 
