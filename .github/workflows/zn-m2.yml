@@ -38,7 +38,8 @@ jobs:
   build:
     runs-on: ${{ inputs.runner_choice == 'self-hosted'
                  && 'self-hosted'
-                 || inputs.runner_choice }}
+                 || inputs.runner_choice 
+                 || 'ubuntu-24.04'}}
 
     steps:
     
