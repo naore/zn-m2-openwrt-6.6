@@ -129,6 +129,7 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
+        find . -maxdepth 3 -mindepth 1 -type d
 
     - name: Update & Install feeds
       run: |
