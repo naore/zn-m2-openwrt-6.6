@@ -14,7 +14,7 @@
 #./scripts/feeds install -a -f -p passwall_luci
 
 # 更新cmake
-git clone -b main-nss --depth 1 https://github.com/LiBwrt/openwrt-6.x/ /tmp/repo
+git clone -b kernel-6.12 --depth 1 https://github.com/naore/openwrt-6.x/ /tmp/repo
 rm -rf ./tools/cmake/*
 cp -r /tmp/repo/tools/cmake/* ./tools/cmake/
 rm -rf /tmp/repo
