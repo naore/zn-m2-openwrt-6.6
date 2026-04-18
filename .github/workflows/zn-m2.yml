@@ -135,11 +135,11 @@ jobs:
       run: |
         cd openwrt
         ./scripts/feeds update -a
+        chmod +x $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/$DIY_P2_SH
         ./scripts/feeds install -a
         # 在執行 DIY 腳本前，先清理可能導致衝突的舊配置
         rm -f .config* 
-        chmod +x $GITHUB_WORKSPACE/$DIY_P2_SH
-        $GITHUB_WORKSPACE/$DIY_P2_SH
 
     - name: Load custom configuration
       run: |
