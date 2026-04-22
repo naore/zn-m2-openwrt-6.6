@@ -17,3 +17,4 @@
 # echo 'src-git store https://github.com/linkease/istore.git;main' >>feeds.conf.default
 # argon, etc.
 echo 'src-git third https://github.com/jjm2473/openwrt-third.git;main' >>feeds.conf.default
+echo 'src-git third2 https://github.com/xiangfeidexiaohuo/extra-ipk.git;master' >>feeds.conf.default
